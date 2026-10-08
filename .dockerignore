@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+.claude
+.DS_Store
+.env
+# Generated during the image build
+site/**/*.html
+public/sitemap.xml
+public/robots.txt

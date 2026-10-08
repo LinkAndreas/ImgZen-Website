@@ -1,0 +1,18 @@
+{
+  "iphone": {
+    "width": 1428,
+    "height": 2959,
+    "widths": [
+      480,
+      760
+    ]
+  },
+  "ipad": {
+    "width": 2896,
+    "height": 2208,
+    "widths": [
+      900,
+      1600
+    ]
+  }
+}

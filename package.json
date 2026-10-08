@@ -1,0 +1,22 @@
+{
+  "name": "imgzen-site",
+  "private": true,
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Marketing website for ImgZen — convert images between JPEG, HEIC, WebP, PNG, TIFF and BMP on iPhone and iPad.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "render": "node scripts/render.mjs",
+    "images": "node scripts/build-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4",
+    "vite": "^8.3.1"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true
+  }
+}
