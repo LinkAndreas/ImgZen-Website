@@ -184,9 +184,9 @@ export default {
     otherLanguages: 'Also available in',
     backHome: 'Back to ImgZen',
     privacyTitle: 'Privacy Policy',
-    privacyDescription: 'How ImgZen handles your data: it doesn’t collect, store or process any personal data. Images are converted on your device.',
+    privacyDescription: 'How ImgZen handles your data: no personal data is collected, and images are converted on your device. Optional purchases are handled by Apple.',
     termsTitle: 'Terms of Use',
-    termsDescription: 'The terms of use for the ImgZen app: Apple’s Standard License Agreement for Licensed Applications.',
+    termsDescription: 'The terms of use for the ImgZen app: Apple’s Standard EULA plus a few short additions — optional purchases, liability.',
     redirecting: 'Redirecting…',
   },
 };

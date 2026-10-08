@@ -183,9 +183,9 @@ export default {
     otherLanguages: 'Auch verfügbar auf',
     backHome: 'Zurück zu ImgZen',
     privacyTitle: 'Datenschutzerklärung',
-    privacyDescription: 'Wie ImgZen mit deinen Daten umgeht: Die App erhebt, speichert und verarbeitet keine personenbezogenen Daten. Bilder werden auf deinem Gerät konvertiert.',
+    privacyDescription: 'Wie ImgZen mit deinen Daten umgeht: Es werden keine personenbezogenen Daten erhoben, Bilder werden auf deinem Gerät konvertiert. Optionale Käufe wickelt Apple ab.',
     termsTitle: 'Nutzungsbedingungen',
-    termsDescription: 'Die Nutzungsbedingungen der App ImgZen: Apples Standard-Lizenzvertrag für lizenzierte Anwendungen.',
+    termsDescription: 'Die Nutzungsbedingungen der App ImgZen: Apples Standard-EULA und einige kurze Ergänzungen — freiwillige Käufe, Haftung.',
     redirecting: 'Weiterleitung …',
   },
 };

@@ -2,7 +2,7 @@
 const appStoreId = '6757331137';
 
 /** Canonical, absolute URL of the deployed site. Override with SITE_URL at build time. */
-const siteUrl = (process.env.SITE_URL || 'https://www.linkandreas.de/imgzen/').replace(/\/?$/, '/');
+const siteUrl = (process.env.SITE_URL || 'https://imgzen.linkandreas.de/').replace(/\/?$/, '/');
 
 export const site = {
   /** Canonical, absolute URL of the deployed site, with a trailing slash. */
@@ -23,7 +23,7 @@ export const site = {
   },
 
   /** Effective date of the legal pages (ISO). Update whenever their text changes. */
-  legalEffectiveDate: '2026-04-15',
+  legalEffectiveDate: '2026-10-08',
 
   /** Languages, in switcher order. The first is the default at the site root. */
   languages: [

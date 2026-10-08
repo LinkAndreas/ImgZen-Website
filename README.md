@@ -20,7 +20,8 @@ npm run preview   # serve dist/
 | `/termsofuse/<lang>/` | Terms of Use |
 | `/privacy/` · `/termsofuse/` | Forward to the visitor's language |
 
-`/privacy/en` and `/privacy/de` are the Privacy Policy URLs set in App Store Connect — keep them. On a first
+`/privacy/<lang>/` and `/termsofuse/<lang>/` are linked from the app (`SupportLinks.swift`) and set in App Store
+Connect — keep them. On a first
 visit, the English root page forwards visitors whose browser prefers German; choosing a language in the switcher
 is remembered and turns this off.
 
@@ -83,21 +84,48 @@ and update `content/formats.js`.
 
 ## Deploying
 
-The image builds the site and serves it with [Caddy](https://caddyserver.com) on port 32773: compression,
-caching and security headers are configured in `docker/Caddyfile`. The container publishes no ports; it joins the
-shared Docker network `web` on the VPS, where the `cloudflared` container reaches it at
-`http://imgzen-website:32773`.
+The site is served at **https://imgzen.linkandreas.de**, the same way as `breathia.linkandreas.de`: a Docker image
+with [Caddy](https://caddyserver.com) on port 32773 (compression, caching and security headers in
+`docker/Caddyfile`), on the Hostinger VPS behind the Cloudflare Tunnel. The container publishes no ports; it joins
+the shared Docker network `web`, where the `cloudflared` container reaches it at `http://imgzen-website:32773`.
 
-Every merge into `main` runs `.github/workflows/deploy.yml`: GitHub builds the image, pushes it to
-`ghcr.io/linkandreas/imgzen-website` tagged with the commit SHA, copies `compose.yaml` to `~/imgzen-website` on
-the VPS, pulls that image and restarts the container. Repository secrets: `HOSTINGER_HOST`,
-`HOSTINGER_USERNAME`, `HOSTINGER_SSH_KEY` — the same setup as the Breathia website.
+Every merge into `main` (each release) runs `.github/workflows/deploy.yml`: GitHub builds the image and pushes it
+to `ghcr.io/linkandreas/imgzen-website`, tagged with the commit SHA. The VPS then only receives `compose.yaml` in
+`~/imgzen-website`, pulls that image and restarts the container. It can also be started by hand under
+**Actions › Deploy to Hostinger VPS › Run workflow**.
 
 To roll back, run on the VPS: `cd ~/imgzen-website && TAG=<older commit sha> docker compose up -d`.
 
-The canonical URL (`https://www.linkandreas.de/imgzen/`) is set in `content/site.js`; override it with
-`SITE_URL` at build time. `npm run build` outputs a static site in `dist/` with relative asset URLs, so it can
-also be served from any other host and path.
+### First-time setup
+
+1. **Create the repository** on GitHub, e.g. `LinkAndreas/ImgZen-Website` (public, no README or license — this
+   repository brings its own), and push both branches:
+
+   ```bash
+   git remote add origin git@github.com:LinkAndreas/ImgZen-Website.git
+   git push -u origin main develop
+   ```
+
+   Pushing `main` starts the first deployment, which fails until the secrets below exist; re-run it afterwards.
+2. **Secrets** — in the repository, under **Settings › Secrets and variables › Actions**, add the same three as for
+   the Breathia website: `HOSTINGER_HOST` (VPS IP address), `HOSTINGER_USERNAME` (SSH user, e.g. `root`) and
+   `HOSTINGER_SSH_KEY` (the private deploy key authorized on the VPS).
+3. **Environment** — the deploy job runs in the `production` environment, which GitHub creates on the first run.
+4. **Package visibility** — after the first successful build, open the `imgzen-website` package under your GitHub
+   profile › Packages and connect it to the repository (Package settings › Manage Actions access) if GitHub didn't.
+   The VPS logs in with the job's token, so the package can stay private.
+5. **Domain** — in Cloudflare **Zero Trust › Networks › Tunnels**, edit the tunnel and add a public hostname:
+   subdomain `imgzen`, domain `linkandreas.de`, service **HTTP**, URL `imgzen-website:32773`. Cloudflare creates the
+   DNS record and serves HTTPS.
+
+To run it locally:
+`docker build -t imgzen-website . && docker run --rm -p 32773:32773 imgzen-website` → <http://localhost:32773>.
+
+### Anywhere else
+
+`npm run build` outputs a static site in `dist/` with relative asset URLs, so it can be served from any host and
+path. `SITE_URL` sets the canonical URL used in links, the sitemap and `robots.txt` (default
+`https://imgzen.linkandreas.de/`, see `content/site.js`).
 
 ## License
 
