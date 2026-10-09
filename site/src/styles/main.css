@@ -5,26 +5,29 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  /* Brand, from the app icon */
-  --night: #0d0b3a;
-  --navy: #1a1660;
-  --indigo: #2b1f8f;
-  --dusk: #5b3fe0;
-  --peach: #ff8a3d;
-  --sun-core: #ffe7a3;
-  --sun-mid: #ffd166;
-  --sun-edge: #ff8a3d;
-  --sun-rim: #ff5e62;
-  --sky-blue: #5fb6ff;
-  --hero-ground: #2a1d86;
+  /* Brand, from the app icon's dark appearance (AppIcon/app_icon_dark.svg in the app repository):
+     its sky, back mountain and sun. */
+  --night: #09042d;
+  --navy: #1b0e91;
+  --indigo: #2f28c9;
+  --dusk: #8149bc;
+  --peach: #fb8c22;
+  --sun-core: #fbcf31;
+  --sun-mid: #fb8c22;
+  --sun-edge: #fc4525;
+  --sun-rim: #f21c3e;
+  --sky-blue: #59c1ff;
+  --hero-ground: #1c0870;
 
   /* Accents. The app tints techniques oklch(0.62 0.15 hue); for text we shift lightness
      per scheme so every accent clears WCAG AA (4.5:1) on its background. */
   --tint-l: 0.5;
   --pink: oklch(0.52 0.16 340);
   --violet: oklch(0.5 0.15 285);
-  --blue: #0071e3;
-  --blue-fill: #0071e3;
+  /* The app's accent: the classic icon's mountain (#596ef3), deepened just enough that text and
+     white-on-fill clear WCAG AA (4.5:1) on both light surfaces. */
+  --blue: #4a5de6;
+  --blue-fill: #4a5de6;
   --green: #1f7a35;
   --peach-deep: #b4532f;
   --orange: #c2410c;
@@ -68,7 +71,7 @@
   --tint-l: 0.78;
   --pink: oklch(0.74 0.13 340);
   --violet: oklch(0.74 0.12 285);
-  --blue: #2997ff;
+  --blue: #8c9bff;
   --green: #30d158;
   --peach-deep: #ff9f86;
   --orange: #ff9f5a;
@@ -88,7 +91,7 @@
     --tint-l: 0.78;
     --pink: oklch(0.74 0.13 340);
     --violet: oklch(0.74 0.12 285);
-    --blue: #2997ff;
+    --blue: #8c9bff;
     --green: #30d158;
     --peach-deep: #ff9f86;
     --orange: #ff9f5a;
@@ -738,7 +741,7 @@ button {
   aspect-ratio: 1;
   translate: -50% 0;
   border-radius: 50%;
-  background: radial-gradient(circle at 45% 40%, var(--sun-core), var(--sun-mid) 35%, var(--sun-edge) 55%, rgb(255 143 122 / 0.3) 64%, transparent 72%);
+  background: radial-gradient(circle at 45% 40%, var(--sun-core), var(--sun-mid) 35%, var(--sun-edge) 55%, rgb(252 69 37 / 0.3) 64%, transparent 72%);
   opacity: 0.7;
   animation: breathe 10s ease-in-out infinite;
 }
@@ -1096,7 +1099,7 @@ button {
   aspect-ratio: 1;
   translate: -50% 0;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 45%, var(--sun-core) 0%, var(--sun-mid) 30%, var(--sun-edge) 50%, rgb(255 94 98 / 0.45) 62%, transparent 72%);
+  background: radial-gradient(circle at 50% 45%, var(--sun-core) 0%, var(--sun-mid) 30%, var(--sun-edge) 50%, rgb(242 28 62 / 0.45) 62%, transparent 72%);
   filter: blur(2px);
   opacity: 0.9;
   animation: breathe 12s ease-in-out infinite;

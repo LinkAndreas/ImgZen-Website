@@ -70,7 +70,7 @@ export function renderDocument({ lang, t, page, title, description, content, hea
     <link rel="canonical" href="${url}" />
     ${alternates}
     <link rel="alternate" hreflang="x-default" href="${absolute(routes[page](languages[0]))}" />
-    <meta name="theme-color" content="#120f45" />
+    <meta name="theme-color" content="#09042d" />
     <meta name="color-scheme" content="light dark" />
     <meta name="apple-itunes-app" content="app-id=${site.appStoreId}" />
     <link rel="icon" href="/favicon.png" type="image/png" />

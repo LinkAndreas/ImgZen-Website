@@ -156,22 +156,22 @@ console.log(`ipad: ${ipad.screens.length} screen per language, drawn frame`);
 await writeFile(manifestFile, `${JSON.stringify(manifest, null, 2)}\n`);
 
 // ---- Social preview (1200×630) ---------------------------------------------------------------
-// The app icon's palette: a sunset over violet and blue mountains.
+// The app icon's palette (its dark appearance): a sunset over violet and blue mountains.
 const iconData = `data:image/png;base64,${(await sharp(iconRounded).resize(224).png().toBuffer()).toString('base64')}`;
 const og = `
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0d0b3a"/><stop offset="0.55" stop-color="#2b1f8f"/><stop offset="1" stop-color="#5b3fe0"/>
+      <stop offset="0" stop-color="#09042d"/><stop offset="0.55" stop-color="#2f28c9"/><stop offset="1" stop-color="#8149bc"/>
     </linearGradient>
     <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#ffd166"/><stop offset="0.7" stop-color="#ff8a3d"/><stop offset="1" stop-color="#ff5e62"/>
+      <stop offset="0" stop-color="#fbcf31"/><stop offset="0.55" stop-color="#fb8c22"/><stop offset="0.85" stop-color="#fc4525"/><stop offset="1" stop-color="#f21c3e"/>
     </radialGradient>
     <radialGradient id="halo" cx="930" cy="250" r="380" gradientUnits="userSpaceOnUse">
-      <stop offset="0.2" stop-color="#ff7a59" stop-opacity="0.45"/><stop offset="1" stop-color="#ff7a59" stop-opacity="0"/>
+      <stop offset="0.2" stop-color="#d3005d" stop-opacity="0.45"/><stop offset="1" stop-color="#d3005d" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#58b2ff"/><stop offset="1" stop-color="#4b3fd8"/></linearGradient>
-    <linearGradient id="near" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7b5cff"/><stop offset="1" stop-color="#2a1d86"/></linearGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#59c1ff"/><stop offset="1" stop-color="#2f28c9"/></linearGradient>
+    <linearGradient id="near" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4263f2"/><stop offset="1" stop-color="#150d77"/></linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#sky)"/>
   <rect width="1200" height="630" fill="url(#halo)"/>
