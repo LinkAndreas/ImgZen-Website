@@ -59,7 +59,7 @@ export default {
       '<strong>A short note on every format</strong> in the app tells you what it’s best for, so you don’t need to know the details.',
     ],
     sampleLabel: 'Example photo',
-    sample: '12 megapixels · originally {size} {format}',
+    sample: '12 megapixels · an iPhone photo',
     qualityLabel: 'Quality',
     qualities: { low: 'Low', medium: 'Medium', high: 'High', maximum: 'Maximum' },
     qualityHints: {
@@ -72,7 +72,7 @@ export default {
     lossless: 'Lossless formats — always full quality',
     subtitles: {
       jpeg: 'Works everywhere. Best for sharing photos.',
-      heic: 'About half the size of JPEG. Best on Apple devices.',
+      heic: 'Usually smaller than JPEG. Best on Apple devices.',
       webp: 'Small files for websites.',
       png: 'Sharp graphics and screenshots. Keeps transparency.',
       tiff: 'Best for printing and archiving.',
