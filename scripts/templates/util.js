@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { site } from '../../content/site.js';
 
 export const languages = site.languages.map((l) => l.code);
@@ -21,6 +23,16 @@ export function rel(fromDir, to) {
 }
 
 export const absolute = (path) => site.url + path;
+
+/**
+ * A file in public/ as an href with a short hash of its content, so a changed image gets a new URL
+ * and caches (the browser's and Cloudflare's, which keep images for a week) fetch it again.
+ */
+export function asset(path) {
+  const file = new URL(`../../public/${path.replace(/^\//, '')}`, import.meta.url);
+  const hash = createHash('sha1').update(readFileSync(file)).digest('hex').slice(0, 8);
+  return `${path}?v=${hash}`;
+}
 
 export const escapeHtml = (s) =>
   String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);

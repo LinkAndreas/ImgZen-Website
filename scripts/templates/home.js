@@ -3,7 +3,7 @@ import { site } from '../../content/site.js';
 import { defaultQuality, formats, qualities, sample } from '../../content/formats.js';
 import devices from '../../content/devices.json' with { type: 'json' };
 import { renderDocument, storeBadge } from './layout.js';
-import { escapeHtml, fill, rel, routes } from './util.js';
+import { escapeHtml, fill, rel, routes, asset } from './util.js';
 
 const deviceSizes = {
   iphone: '(min-width: 960px) 340px, 70vw',
@@ -16,8 +16,8 @@ const deviceSizes = {
  */
 function device(lang, kind, name, { alt, className = '', eager = false }) {
   const { width, height, widths } = devices[kind];
-  const set = (scheme) => widths.map((w) => `/images/devices/${lang}/${name}-${scheme}-${w}.webp ${w}w`).join(', ');
-  const fallback = `/images/devices/${lang}/${name}-light-${widths[0]}.webp`;
+  const set = (scheme) => widths.map((w) => `${asset(`/images/devices/${lang}/${name}-${scheme}-${w}.webp`)} ${w}w`).join(', ');
+  const fallback = asset(`/images/devices/${lang}/${name}-light-${widths[0]}.webp`);
   const loading = eager ? ' fetchpriority="high"' : ' loading="lazy"';
   return `<figure class="device device--${kind}${className ? ` ${className}` : ''}">
               <picture>
@@ -141,7 +141,7 @@ export function renderHome(lang, t) {
     description: t.meta.description,
     url: site.url + dir,
     downloadUrl: site.appStoreUrl,
-    image: `${site.url}og-image.png`,
+    image: `${site.url}${asset('og-image.png')}`,
     inLanguage: site.languages.map((l) => l.code),
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     author: { '@type': 'Person', name: site.developer.name },
@@ -156,7 +156,7 @@ export function renderHome(lang, t) {
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero__copy container">
           <p class="hero__eyebrow intro">
-            <img src="/images/icon-256.webp" width="56" height="56" alt="" class="hero__icon" />
+            <img src="${asset('/images/icon-256.webp')}" width="56" height="56" alt="" class="hero__icon" />
             <span>${t.hero.eyebrow}</span>
           </p>
           <h1 class="hero__title intro" id="hero-title">${t.hero.title}</h1>
@@ -288,7 +288,7 @@ export function renderHome(lang, t) {
       <section class="cta" id="download" aria-labelledby="cta-title">
         <div class="cta__sun" aria-hidden="true"></div>
         <div class="container cta__inner">
-          <img class="cta__icon reveal" src="/images/icon-256.webp" width="112" height="112" alt="${escapeHtml(t.cta.iconAlt)}" loading="lazy" />
+          <img class="cta__icon reveal" src="${asset('/images/icon-256.webp')}" width="112" height="112" alt="${escapeHtml(t.cta.iconAlt)}" loading="lazy" />
           <h2 class="cta__title reveal" id="cta-title">${t.cta.title}</h2>
           <p class="cta__lede reveal">${t.cta.lede}</p>
           ${storeBadge(t, lang, { height: 56 })}

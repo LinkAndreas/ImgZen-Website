@@ -1,7 +1,7 @@
 // The document shell shared by every page: head/SEO, navigation with language switcher, footer.
 import { readFileSync } from 'node:fs';
 import { site } from '../../content/site.js';
-import { absolute, escapeHtml, languageName, languages, ogLocale, rel, routes } from './util.js';
+import { absolute, asset, escapeHtml, languageName, languages, ogLocale, rel, routes } from './util.js';
 
 const globeIcon =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>';
@@ -20,7 +20,7 @@ const badgeRatio = Object.fromEntries(
 export function storeBadge(t, lang, { height = 48 } = {}) {
   const width = Math.round(height * badgeRatio[lang]);
   return `<div class="badges" style="--badge-h: ${height}px">
-              <a class="badge" href="${site.appStoreUrl}"><img src="/images/badges/app-store-${lang}.svg" width="${width}" height="${height}" alt="${t.common.appStoreBadge}" /></a>
+              <a class="badge" href="${site.appStoreUrl}"><img src="${asset(`/images/badges/app-store-${lang}.svg`)}" width="${width}" height="${height}" alt="${t.common.appStoreBadge}" /></a>
             </div>`;
 }
 
@@ -73,8 +73,8 @@ export function renderDocument({ lang, t, page, title, description, content, hea
     <meta name="theme-color" content="#09042d" />
     <meta name="color-scheme" content="light dark" />
     <meta name="apple-itunes-app" content="app-id=${site.appStoreId}" />
-    <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="${asset('/favicon.png')}" type="image/png" />
+    <link rel="apple-touch-icon" href="${asset('/apple-touch-icon.png')}" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="ImgZen" />
@@ -82,7 +82,7 @@ export function renderDocument({ lang, t, page, title, description, content, hea
     <meta property="og:title" content="${escapeHtml(ogTitle ?? title)}" />
     <meta property="og:description" content="${escapeHtml(ogDescription ?? description)}" />
     <meta property="og:url" content="${url}" />
-    <meta property="og:image" content="${absolute('og-image.png')}" />
+    <meta property="og:image" content="${site.url}${asset('og-image.png')}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="${escapeHtml(t.meta.ogImageAlt)}" />
@@ -105,7 +105,7 @@ export function renderDocument({ lang, t, page, title, description, content, hea
     <header class="nav${onHome ? '' : ' is-solid nav--static'}" data-nav>
       <div class="nav__inner">
         <a class="nav__brand" href="${onHome ? '#top' : rel(dir, home)}" aria-label="${onHome ? t.common.backToTop : t.common.home}">
-          <img src="/favicon.png" width="28" height="28" alt="" />
+          <img src="${asset('/favicon.png')}" width="28" height="28" alt="" />
           <span>ImgZen</span>
         </a>
         <nav class="nav__links" aria-label="${t.common.sections}">
@@ -128,7 +128,7 @@ ${content}
       <div class="container footer__inner">
         <div class="footer__top">
           <a class="footer__brand" href="${rel(dir, home)}">
-            <img src="/favicon.png" width="24" height="24" alt="" />
+            <img src="${asset('/favicon.png')}" width="24" height="24" alt="" />
             <span>ImgZen</span>
           </a>
           ${languageSwitcher({ lang, page, dir, t, variant: 'footer' })}
