@@ -32,6 +32,16 @@ await sharp(iconRounded).resize(64).png().toFile(path.join(publicDir, 'favicon.p
 await sharp(iconRounded).resize(256).webp({ quality: 90 }).toFile(path.join(publicDir, 'images/icon-256.webp'));
 console.log('Icons written to public/.');
 
+// ---- Sample thumbnail ------------------------------------------------------------------------
+// The flower photo from the gallery screenshot (a 4032 × 3024 HEIC in the app), for the file cards
+// beside the hero's phone.
+await sharp(path.join(screensIn, 'en/iphone-gallery-light.webp'))
+  .extract({ left: 70, top: 550, width: 330, height: 330 })
+  .resize(96)
+  .webp({ quality: 82 })
+  .toFile(path.join(publicDir, 'images/sample-thumb.webp'));
+console.log('Sample thumbnail written to public/images/.');
+
 // ---- Device mockups --------------------------------------------------------------------------
 const manifestFile = path.join(root, 'content/devices.json');
 const manifest = existsSync(manifestFile) ? JSON.parse(await readFile(manifestFile, 'utf8')) : {};

@@ -29,6 +29,27 @@ document.querySelectorAll('.reveal').forEach((el) => {
 
 initExplorer(document.querySelector('[data-explorer]'));
 
+// Hero ticker: cycles through example conversions, and the file cards beside the phone follow.
+// Without script or with reduced motion it stays on the first one.
+const ticker = document.querySelector('[data-ticker]');
+if (ticker && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const conversions = JSON.parse(ticker.dataset.conversions);
+  const stage = document.querySelector('.hero');
+  let index = 0;
+  setInterval(() => {
+    index = (index + 1) % conversions.length;
+    const [from, to] = conversions[index];
+    stage.classList.remove('is-converting');
+    // Restart the swap animation on every change.
+    void stage.offsetWidth;
+    stage.classList.add('is-converting');
+    ticker.querySelector('[data-from]').textContent = from;
+    ticker.querySelector('[data-to]').textContent = to;
+    stage.querySelectorAll('.filecard [data-from]').forEach((el) => (el.textContent = from.toLowerCase()));
+    stage.querySelectorAll('.filecard [data-to]').forEach((el) => (el.textContent = to.toLowerCase()));
+  }, 2800);
+}
+
 // Language menus: remember an explicit choice (the default-language home page uses it to
 // skip its browser-language redirect), and close the menu on outside click or Escape.
 document.querySelectorAll('[data-lang]').forEach((link) =>
