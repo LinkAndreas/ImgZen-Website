@@ -112,71 +112,6 @@ const languageRedirect = (dir) => `<script>
       })();
     </script>`;
 
-/** A deterministic 0–1 value per cell, so the pixel art is the same on every build. */
-const noise = (x, y) => {
-  const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
-  return n - Math.floor(n);
-};
-
-/** The app icon's sun as pixel art: rings of its four colors, dithered where they meet. */
-function pixelSun() {
-  const cell = 20;
-  const size = 400;
-  const center = size / 2;
-  const bands = [
-    [0.42, 'var(--sun-core)'],
-    [0.68, 'var(--sun-mid)'],
-    [0.9, 'var(--sun-edge)'],
-    [1, 'var(--sun-rim)'],
-  ];
-  const cells = [];
-  for (let y = 0; y < size; y += cell) {
-    for (let x = 0; x < size; x += cell) {
-      const d = Math.hypot(x + cell / 2 - center, y + cell / 2 - center) / center;
-      // Jitter the distance a little so the rings dither into each other.
-      const jittered = d + (noise(x, y) - 0.5) * 0.12;
-      if (jittered > 1) continue;
-      const fill = bands.find(([edge]) => jittered <= edge)[1];
-      const flicker = noise(y, x) > 0.93 ? ' class="px--flicker"' : '';
-      cells.push(`<rect x="${x + 1}" y="${y + 1}" width="${cell - 2}" height="${cell - 2}" fill="${fill}"${flicker} />`);
-    }
-  }
-  return `<svg class="hero__sun" viewBox="0 0 ${size} ${size}" aria-hidden="true">${cells.join('')}</svg>`;
-}
-
-/** A mountain ridge (polyline through `points`) stepped onto a square grid, like a downscaled image. */
-function pixelRidge(points, cell, width = 1440, height = 360) {
-  const yAt = (x) => {
-    const i = points.findIndex(([px]) => px >= x);
-    if (i <= 0) return points[0][1];
-    const [x0, y0] = points[i - 1];
-    const [x1, y1] = points[i];
-    return y0 + ((y1 - y0) * (x - x0)) / (x1 - x0);
-  };
-  let d = `M0 ${height}`;
-  for (let x = 0; x < width; x += cell) {
-    const y = Math.round(yAt(x + cell / 2) / cell) * cell;
-    d += ` V${y} H${Math.min(x + cell, width)}`;
-  }
-  return `${d} V${height}Z`;
-}
-
-/** The mountains of the app icon, in pixels, as the hero's ground. */
-const landscape = `<svg class="hero__land" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-            <defs>
-              <linearGradient id="peak-far" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#5fb6ff" />
-                <stop offset="1" stop-color="#4b3fd8" />
-              </linearGradient>
-              <linearGradient id="peak-near" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#8a6bff" />
-                <stop offset="1" stop-color="var(--hero-ground)" />
-              </linearGradient>
-            </defs>
-            <path class="peak peak--far" fill="url(#peak-far)" d="${pixelRidge([[0, 300], [260, 110], [470, 260], [700, 60], [960, 250], [1180, 120], [1440, 280]], 30)}" />
-            <path class="peak peak--near" fill="url(#peak-near)" d="${pixelRidge([[0, 290], [330, 170], [600, 330], [860, 180], [1120, 320], [1440, 220]], 30)}" />
-          </svg>`;
-
 /** Conversions the hero cycles through (main.js); the first is rendered, so it reads without script. */
 const conversions = [
   ['HEIC', 'JPEG'],
@@ -222,7 +157,7 @@ export function renderHome(lang, t) {
   const content = `
       <!-- Hero -->
       <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="hero__grid" aria-hidden="true"></div>
+        <div class="hero__glow" aria-hidden="true"></div>
         <div class="hero__inner container">
           <div class="hero__copy">
             <p class="hero__eyebrow intro">
@@ -244,7 +179,6 @@ export function renderHome(lang, t) {
           </div>
 
           <div class="hero__stage">
-            ${pixelSun()}
             ${device(lang, 'iphone', 'iphone-gallery', { alt: t.hero.phoneAlt, className: 'hero__phone', eager: true })}
             <div class="hero__files" aria-hidden="true">
             ${fileCard('in', conversions[0][0])}
@@ -252,7 +186,6 @@ export function renderHome(lang, t) {
             </div>
           </div>
         </div>
-        ${landscape}
       </section>
 
       <!-- At a glance -->
@@ -277,7 +210,7 @@ export function renderHome(lang, t) {
             </ul>
           </div>
           <div class="split__visual reveal">
-            <div class="frame">${explorer(t, lang)}</div>
+            ${explorer(t, lang)}
           </div>
         </div>
       </section>
@@ -294,7 +227,7 @@ export function renderHome(lang, t) {
             ${t.how.steps
               .map(
                 (step, i) => `<li class="step reveal">
-              <span class="step__num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+              <span class="step__num" aria-hidden="true">${i + 1}</span>
               ${device(lang, 'iphone', ['iphone-picker', 'iphone-format', 'iphone-results'][i], { alt: step.alt, className: 'device--sm' })}
               <h3>${step.title}</h3>
               <p>${step.body}</p>
