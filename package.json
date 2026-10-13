@@ -2,7 +2,7 @@
   "name": "imgzen-site",
   "private": true,
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Marketing website for ImgZen — convert images between JPEG, HEIC, WebP, PNG, TIFF and BMP on iPhone and iPad.",
   "type": "module",
   "scripts": {
