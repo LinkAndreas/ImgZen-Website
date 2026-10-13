@@ -1500,3 +1500,56 @@ button {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ==========================================================================
+   Supporter app icons
+   ========================================================================== */
+.app-icons {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.25rem, 1rem + 1.5vw, 2rem) clamp(0.75rem, 0.5rem + 1.5vw, 1.5rem);
+  max-width: 46rem;
+  margin-inline: auto;
+}
+@media (min-width: 900px) {
+  .app-icons {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    max-width: none;
+  }
+}
+.app-icon {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.6rem;
+  min-width: 0;
+  text-align: center;
+  /* Long names, like Mitternachtsgold, wrap within their column. */
+  hyphens: auto;
+  overflow-wrap: anywhere;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+/* The previews are square, as the app rounds them itself. */
+.app-icon img {
+  width: clamp(56px, 3rem + 4vw, 88px);
+  height: auto;
+  border-radius: 22.5%;
+  box-shadow: 0 0 0 1px var(--hairline), 0 12px 24px -12px rgb(0 0 0 / 0.35);
+  transition: transform 0.3s var(--ease);
+}
+.app-icon:hover img {
+  transform: translateY(-4px) rotate(-3deg);
+}
+.app-icon--free span {
+  color: var(--ink);
+  font-weight: 600;
+}
+.app-icons__note {
+  margin: 2rem auto 0;
+  max-width: 40em;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--ink-3);
+}
