@@ -131,6 +131,18 @@ const fileCard = (role, ext) => `<div class="filecard filecard--${role}">
               </span>
             </div>`;
 
+/** The app icons supporters can choose, in the app's order (SupporterIcon.swift), with their files in public/images/icons. */
+const supporterIcons = [
+  ['classic', 'classic'],
+  ['amethyst', 'amethyst'],
+  ['blush', 'blush'],
+  ['ember', 'ember'],
+  ['glacier', 'glacier'],
+  ['lagoon', 'lagoon'],
+  ['midnightGold', 'midnight-gold'],
+  ['noir', 'noir'],
+];
+
 export function renderHome(lang, t) {
   const dir = routes.home(lang);
 
@@ -295,6 +307,31 @@ export function renderHome(lang, t) {
               )
               .join('\n            ')}
           </ul>
+        </div>
+      </section>
+
+      <!-- Supporter app icons -->
+      <section class="section" id="icons" aria-labelledby="icons-title">
+        <div class="container">
+          <header class="section__header section__header--center">
+            <p class="eyebrow reveal" style="--accent: var(--violet)">${t.icons.eyebrow}</p>
+            <h2 class="section__title reveal" id="icons-title">${t.icons.title}</h2>
+            <p class="section__lede reveal">${t.icons.lede}</p>
+          </header>
+          <ul class="app-icons" role="list" aria-label="${t.icons.label}">
+            ${supporterIcons
+              .map(
+                ([id, file]) => `<li class="app-icon reveal${id === 'classic' ? ' app-icon--free' : ''}">
+              <picture>
+                <source srcset="${asset(`/images/icons/${file}-dark.svg`)}" media="(prefers-color-scheme: dark)" data-dark-source />
+                <img src="${asset(`/images/icons/${file}.svg`)}" width="96" height="96" alt="" loading="lazy" />
+              </picture>
+              <span>${t.icons.names[id]}</span>
+            </li>`,
+              )
+              .join('\n            ')}
+          </ul>
+          <p class="app-icons__note reveal">${t.icons.note}</p>
         </div>
       </section>
 

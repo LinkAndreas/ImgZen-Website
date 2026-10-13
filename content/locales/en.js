@@ -160,6 +160,15 @@ export default {
     link: 'Read the Privacy Policy',
   },
 
+  icons: {
+    eyebrow: 'App icons',
+    title: 'Make it yours.',
+    lede: 'Supporters can choose from seven more app icons — and ImgZen takes on the colors of the one they pick, from its logo to its background.',
+    label: 'App icons',
+    names: { classic: 'Classic', amethyst: 'Amethyst', blush: 'Blush', ember: 'Ember', glacier: 'Glacier', lagoon: 'Lagoon', midnightGold: 'Midnight Gold', noir: 'Noir' },
+    note: 'Classic is free for everyone. The other icons come with a support subscription, and the one you choose stays when it ends. Every feature of ImgZen is free.',
+  },
+
   cta: {
     iconAlt: 'ImgZen app icon',
     title: 'The format you need,<br />in seconds.',

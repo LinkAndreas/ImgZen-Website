@@ -159,6 +159,15 @@ export default {
     link: 'Datenschutzerklärung lesen',
   },
 
+  icons: {
+    eyebrow: 'App-Symbole',
+    title: 'Mach es zu deinem.',
+    lede: 'Als Dankeschön für Unterstützer gibt es sieben weitere App-Symbole — und ImgZen nimmt die Farben des gewählten an, vom Logo bis zum Hintergrund.',
+    label: 'App-Symbole',
+    names: { classic: 'Klassisch', amethyst: 'Amethyst', blush: 'Zartrosa', ember: 'Glut', glacier: 'Gletscher', lagoon: 'Lagune', midnightGold: 'Mitternachtsgold', noir: 'Noir' },
+    note: 'Klassisch ist für alle kostenlos. Die anderen Symbole gibt es mit einem Unterstützungs-Abo, und das gewählte bleibt, wenn es endet. Alle Funktionen von ImgZen sind kostenlos.',
+  },
+
   cta: {
     iconAlt: 'ImgZen-App-Symbol',
     title: 'Das Format, das du brauchst —<br />in Sekunden.',
